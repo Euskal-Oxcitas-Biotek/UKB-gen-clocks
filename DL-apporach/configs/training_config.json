@@ -1,0 +1,5 @@
+{
+    "project_name": "deepMRI@ADNI_orig",
+    "output_directory": "~/git/deepMRI/",
+    "use_soft_labels": false
+}

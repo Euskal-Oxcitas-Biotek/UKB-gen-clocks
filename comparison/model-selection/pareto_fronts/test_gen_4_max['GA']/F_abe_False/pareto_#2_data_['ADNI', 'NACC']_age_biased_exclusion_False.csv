@@ -1,0 +1,5 @@
+Model_type,Model_name,modelling_strategy,Description,Age_bias_correction,features_type,Training_healthy_group,Oversampling,Training_sex,used_predictors,used_predictors_set_size,MAE_orx_bounded,max_MAE_bin_orx_unbounded,auroc_unbounded_CNvsNoCN,generalization_max
+DL,batch8_model_lr0.005_epoch200_ORXtrue_COLEfalse_gender9_SOFTtrue_RESNETtrue_merged_results.csv--zhang,,soft,zhang,ResNet18,orx,none,all,,,1.1605887569619306,1.7726492886121712,0.5748110895537629,1.3317292712764086
+DL,batch4_model_lr0.005_epoch200_ORXtrue_COLEfalse_gender0_SOFTtrue_RESNETtrue_merged_results.csv--lange,,soft,lange,ResNet18,orx,none,female,,,0.3408037085784768,0.5666418966422763,0.5723208701368324,0.5045199420706299
+DL,batch8_model_lr0.01_epoch200_ORXtrue_COLEfalse_gender0_SOFTtrue_RESNETtrue_merged_results.csv--lange,,soft,lange,ResNet18,orx,none,female,,,0.794709911955283,1.080821859730545,0.5728390176656795,1.1966107011587594
+DL,batch8_model_lr0.01_epoch200_ORXfalse_COLEtrue_gender0_SOFTtrue_RESNETtrue_merged_results.csv--lange,,soft,lange,ResNet18,cole,none,female,,,0.3167795709347872,0.4996090031633134,0.562177304579802,0.3967039684600309
