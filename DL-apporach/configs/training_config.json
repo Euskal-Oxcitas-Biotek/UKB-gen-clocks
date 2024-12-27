@@ -1,5 +1,5 @@
 {
     "project_name": "deepMRI@demo",
-    "output_directory": "../output/",
+    "output_directory": "../configs/dataset_configs/",
     "use_soft_labels": false
 }

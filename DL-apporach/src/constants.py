@@ -14,12 +14,12 @@ MAX_AGE = 98
 INITIAL_FILTERS = 16
 L2_STRENGTH = 0.001
 LEARNING_RATE = 0.01
-EPOCHS = 200
+EPOCHS = 10
 BATCH_SIZE = 4
 DEPTH = 4
 
 NO_FOLDS = None
-TEST_SIZE = 0.1
+TEST_SIZE = 0.2
 
 NUM_TRAIN_SAMPLES = 4  # Number of training samples
 NUM_TEST_SAMPLES = 2    # Number of testing samples
