@@ -27,7 +27,7 @@ A simple Jupyter Notebook that demonstrates the core of the deep learning approa
 
 1. Open the Jupyter Notebook:
    ```bash
-   jupyter notebook
+   jupyter-notebook
    ```
 2. Navigate to the notebook file (e.g., `demo.ipynb`) and open it.
 3. Run the cells step-by-step to explore the examples and outputs.
@@ -37,7 +37,7 @@ A simple Jupyter Notebook that demonstrates the core of the deep learning approa
 ```
 DL-apporach/
 ├──notebooks
-		├──demo.ipynb 		# Main Jupyter Notebook
+	├──demo.ipynb 			# Main Jupyter Notebook
 ├── data/                   			# Folder for datasets
 ├── src/                 			# Folder for source code
 ├── train/                   			# Folder for training files
