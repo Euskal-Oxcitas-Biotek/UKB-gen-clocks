@@ -19,7 +19,7 @@ BATCH_SIZE = 4
 DEPTH = 4
 
 NO_FOLDS = None
-TEST_SIZE = 0.2
+TEST_SIZE = 0.4
 
 NUM_TRAIN_SAMPLES = 4  # Number of training samples
 NUM_TEST_SAMPLES = 2    # Number of testing samples

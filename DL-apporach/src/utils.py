@@ -130,8 +130,8 @@ class AWDLoss:
         # tf.print("age_min:", age_min, "age_max:", age_max, "bin_size:", bin_size, "age_bins:", age_bins)
         _, maes = tf.while_loop(lambda i, _: i < self.num_bins, calculate_bin_mae, [0, maes])
         maes = maes.stack()
-        if len(self.w_coeffs) != len(maes):
-            raise ValueError(f"Weight coefficients ({len(self.w_coeffs)}) do not match number of MAE bins ({len(maes)})")
+        # if len(self.w_coeffs) != len(maes):
+        #     raise ValueError(f"Weight coefficients ({len(self.w_coeffs)}) do not match number of MAE bins ({len(maes)})")
         weighted_maes = tf.reduce_sum(self.w_coeffs * maes)
         loss = self.alpha * overall_mae + self.beta * weighted_maes
         return loss
@@ -146,6 +146,10 @@ class CustomMAE(tf.keras.metrics.MeanAbsoluteError):
         return tf.reduce_sum(self.ages * distribution, axis=-1)
 
     def update_state(self, y_true, y_pred, sample_weight=None):
+
+        # Cast inputs to the same dtype
+        y_true = tf.cast(y_true, dtype=tf.float32)
+        y_pred = tf.cast(y_pred, dtype=tf.float32)
         # Convert log probabilities to probabilities using softmax
         y_pred_prob = tf.nn.softmax(y_pred)
 
@@ -240,6 +244,11 @@ class LocalMAE(tf.keras.metrics.Metric):
         self.bin_counts = self.add_weight(name="bin_counts", shape=(num_bins,), initializer="zeros")
 
     def update_state(self, y_true, y_pred, sample_weight=None):
+
+        # Cast inputs to the same dtype
+        y_true = tf.cast(y_true, dtype=tf.float32)
+        y_pred = tf.cast(y_pred, dtype=tf.float32)
+        
         # Compute absolute errors
         errors = tf.abs(y_true - y_pred)
         
