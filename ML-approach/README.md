@@ -1,6 +1,6 @@
 # ML MODELS TRAINING/TESTING IMPLEMENTATION
 Initial pipeline implementation for model development (including age bias correction) for UKBB paper. Please refer to main.py to check configuration and 
-specific steps followed in this process.
+specific steps followed in this process. By running this file linear and non-linear models are rained, tested and selected (used metadata files are not made public due MTA agreement of UK Biobank, ADNI and NACC)
 
 In this repo, an initial pipeline implementation for model development (including age bias correction) for UKBB paper.
 This approach is focused
