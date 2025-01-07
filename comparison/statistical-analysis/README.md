@@ -1,8 +1,10 @@
-# OBSERVATIONS ON THE OUTCOMES:
- 
- Full list of individual results here (just on DALL as initially done on 4.1): https://drive.google.com/file/d/1BcAHtnDxQhIHb8rVbyA4rXsZgLIZhRyZ/view?usp=drive_link
+# STATISTICAL-ANALYSIS IMPLEMENTATION
 
- There are mainly two type of outcomes in each analysis:
+Implementation used in Section 4.2 to select to perform the discussed statistical tests. In /input_files one can find all available results for different type of approaches in a standardized format and, in /individual_post_analysis, we show the obtained results distinguishing by modelling approach (MC: Machine Learning, GA: Deep Learning, SV: Modifications of Cole's Lasso).
+
+Please refer to main.py to check details on execution and tested cases.
+
+There are mainly two type of outcomes in each analysis:
 
  1) One numerical which corresponds to statistical tests. These will be saved in the corresponding .../stats/ directory.
  The .csv files correspond to individual statistical tests summaries, where the naming of the file describes the settings
@@ -37,6 +39,6 @@
 
 # ANALYSIS MODES. 
 There are 3 options ('standard','standard_linear' and 'cole_resample').
- 1. 'standard' performs the comparisons that I mention in Section 4.1 of the paper draft.
+ 1. 'standard' performs the comparisons mentioned n in Section 4.1 of the manuscript.
  2. 'standard_linear' is the same but constrained to linear models (due to some numerical issues with Zhang on non-linear, we habilitated this option for an additional analysis).
  3. 'cole_resample' is tailored to comparing Cole-corrected models vs uncorrected models using resample as preprocessing step.
