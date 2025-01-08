@@ -37,24 +37,7 @@ def KLDivLoss(y_true, y_pred):
         kl_div = y_true * (tf.math.log(y_true) - y_pred)
     loss = tf.reduce_mean(kl_div, axis=-1)
 
-    # Print values for debugging
-    # tf.print("y_true:", y_true, summarize=-1)
-    # tf.print("y_pred (log-prob):", y_pred, summarize=-1)
-    # tf.print("y_pred (prob):", y_pred_log_prob, summarize=-1)
-
     return loss
-
-# def composite_loss(y_true, y_pred):
-
-#     kl_loss = KLDivLoss()(y_true, y_pred)
-#     mae_loss = tf.reduce_mean(tf.abs(y_true - y_pred))
-
-#     return kl_loss + mae_loss
-    
-    # loss = tf.keras.losses.KLDivergence(reduction = tf.keras.losses.Reduction.SUM)(y_true, y_pred)
-    # n = tf.cast(tf.shape(y_true)[0], tf.float32)
-    
-    return loss / n
 
 class AWDLoss:
     def __init__(self, num_bins=C.BINS, initial_alpha=C.ALPHA, initial_beta=C.BETA, initial_w_coeffs=None):
@@ -62,7 +45,7 @@ class AWDLoss:
         self.alpha = tf.Variable(initial_alpha, trainable=False)
         self.beta = tf.Variable(initial_beta, trainable=False)
         if initial_w_coeffs is None:
-            initial_w_coeffs = [1.0] * num_bins  # Ensure this matches `num_bins`
+            initial_w_coeffs = [1.0] * num_bins 
         self.w_coeffs = tf.Variable(initial_w_coeffs, dtype=tf.float32, trainable=False)
     def __call__(self, y_true, y_pred):
         errors = tf.abs(y_true - y_pred)
@@ -82,12 +65,10 @@ class AWDLoss:
             bin_errors = tf.gather_nd(errors, bin_indices)
             bin_mae = tf.cond(tf.size(bin_errors) > 0, lambda: tf.reduce_mean(bin_errors), lambda: tf.constant(0.0, dtype=tf.float32))
             return i + 1, maes.write(i, bin_mae)
-        # Use tf.print for debugging information
-        # tf.print("age_min:", age_min, "age_max:", age_max, "bin_size:", bin_size, "age_bins:", age_bins)
+
         _, maes = tf.while_loop(lambda i, _: i < self.num_bins, calculate_bin_mae, [0, maes])
         maes = maes.stack()
-        # if len(self.w_coeffs) != len(maes):
-        #     raise ValueError(f"Weight coefficients ({len(self.w_coeffs)}) do not match number of MAE bins ({len(maes)})")
+
         weighted_maes = tf.reduce_sum(self.w_coeffs * maes)
         loss = self.alpha * overall_mae + self.beta * weighted_maes
         return loss
@@ -108,19 +89,10 @@ class CustomMAE(tf.keras.metrics.MeanAbsoluteError):
         y_pred = tf.cast(y_pred, dtype=tf.float32)
         # Convert log probabilities to probabilities using softmax
         y_pred_prob = tf.nn.softmax(y_pred)
-
-        # Debugging: Print shapes and values
-        # tf.print("y_true shape:", tf.shape(y_true))
-        # tf.print("y_pred_prob shape:", tf.shape(y_pred_prob))
-        # tf.print("self.ages shape:", tf.shape(self.ages))
         
         # Compute expected ages
         y_true_age = tf.map_fn(self.calculate_representative_age_tf, y_true, dtype=tf.float32)
         y_pred_age = tf.map_fn(self.calculate_representative_age_tf, y_pred_prob, dtype=tf.float32)
-        
-        # Debugging: Print expected ages
-        # tf.print("y_true_age:", y_true_age)
-        # tf.print("y_pred_age:", y_pred_age)
         
         # Call the parent class's update_state method
         return super().update_state(y_true_age, y_pred_age, sample_weight)
@@ -130,15 +102,10 @@ class CustomSiMAE(tf.keras.metrics.MeanAbsoluteError):
         super().__init__(name=name, **kwargs)
 
     def update_state(self, y_true, y_pred, sample_weight=None):
-        # Assuming y_true and y_pred are directly the age values (e.g., float numbers)
 
         # Ensure y_true and y_pred are of type float32
         y_true = tf.cast(y_true, tf.float32)
         y_pred = tf.cast(y_pred, tf.float32)
-
-        # Debugging: Print shapes and values
-        # tf.print("y_true:", y_true)
-        # tf.print("y_pred:", y_pred)
         
         # Call the parent class's update_state method with the true and predicted ages
         return super().update_state(y_true, y_pred, sample_weight)
@@ -155,19 +122,10 @@ class CustomMSE(tf.keras.metrics.MeanSquaredError):
     def update_state(self, y_true, y_pred, sample_weight=None):
         # Convert log probabilities to probabilities using softmax
         y_pred_prob = tf.nn.softmax(y_pred)
-
-        # Debugging: Print shapes and values
-        # tf.print("y_true shape:", tf.shape(y_true))
-        # tf.print("y_pred_prob shape:", tf.shape(y_pred_prob))
-        # tf.print("self.ages shape:", tf.shape(self.ages))
         
         # Compute expected ages
         y_true_age = tf.map_fn(self.calculate_representative_age_tf, y_true, dtype=tf.float32)
         y_pred_age = tf.map_fn(self.calculate_representative_age_tf, y_pred_prob, dtype=tf.float32)
-        
-        # Debugging: Print expected ages
-        # tf.print("y_true_age:", y_true_age)
-        # tf.print("y_pred_age:", y_pred_age)
         
         # Call the parent class's update_state method
         return super().update_state(y_true_age, y_pred_age, sample_weight)
@@ -182,10 +140,6 @@ class CustomSiMSE(tf.keras.metrics.MeanSquaredError):
         # Ensure y_true and y_pred are of type float32
         y_true = tf.cast(y_true, tf.float32)
         y_pred = tf.cast(y_pred, tf.float32)
-
-        # Debugging: Print shapes and values
-        # tf.print("y_true:", y_true)
-        # tf.print("y_pred:", y_pred)
         
         # Call the parent class's update_state method with the true and predicted ages
         return super().update_state(y_true, y_pred, sample_weight)
@@ -307,14 +261,10 @@ def log_json(fold_num, checkpoint_path, X_train, X_test, history, output_file):
     for epoch in range(len(history.history['loss'])):
         epoch_info = {
             "epoch": epoch + 1
-            # "train_loss": history.history['loss'][epoch],
-            # "test_loss": history.history['val_loss'][epoch]
         }
 
         # Add all other metrics dynamically
         for metric in history.history.keys():
-            # print(metric)
-            # print(history.history[metric])
             if metric.startswith('val_'):
                 epoch_info[f"val_{metric[4:]}"] = history.history[metric][epoch]
             else:
@@ -384,10 +334,7 @@ def discretize_ages(ages, bin_size=C.STEP_BIN):
 
     min_age = C.LOW_BIN
     max_age = C.HGH_BIN + 1.
-    # print(f"Min age: {min_age}")
-    # print(f"Max age: {max_age}")
-    # print(f"Bin step: {bin_size}")
-    bins = np.arange(min_age, max_age + bin_size, bin_size)  # Create bins with float values
+    bins = np.arange(min_age, max_age + bin_size, bin_size)  
 
     # Discretize the ages using the bins
     age_bins = pd.cut(ages, bins=bins, labels=False, include_lowest=True)
@@ -395,12 +342,6 @@ def discretize_ages(ages, bin_size=C.STEP_BIN):
     # Calculate the distribution in each bin
     bin_counts = np.bincount(age_bins)
     total_cases = len(ages)
-
-    # print("Bin edges:", bins)
-    # print("Distribution of cases in each bin:")
-    # for i, count in enumerate(bin_counts):
-    #     percentage = (count / total_cases) * 100
-    #     print(f"Bin {i} ({bins[i]} - {bins[i+1]}): {count} cases ({percentage:.2f}%)")
     
     return age_bins, bins
 
@@ -489,7 +430,6 @@ def random_shift(image):
     shift_x = tf.random.uniform([], minval=-2, maxval=3, dtype=tf.int32)
     shift_y = tf.random.uniform([], minval=-2, maxval=3, dtype=tf.int32)
     shift_z = tf.random.uniform([], minval=-2, maxval=3, dtype=tf.int32)
-    # print(f"Shifts: x={shift_x}, y={shift_y}, z={shift_z}")
     image = tf.roll(image, shift_x, axis=0)
     image = tf.roll(image, shift_y, axis=1)
     image = tf.roll(image, shift_z, axis=2)
@@ -569,7 +509,6 @@ def compute_alpha_beta(y_train_true, y_train_pred, y_valid_true, y_valid_pred, n
 
     return train_alpha, train_beta, valid_alpha, valid_beta
 
-
 def create_experiment_folder():
     folder_name = f"model_lr{C.LEARNING_RATE}_epoch{C.EPOCHS}"
     
@@ -603,8 +542,6 @@ class zhang():
             'age_at_scan': CA,
             'PAD': BA-CA
         }).reset_index(drop=True)
-        #print('data:',self.data)
-
 
     def age_rounding(self):
         """

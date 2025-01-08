@@ -9,9 +9,6 @@ import sys
 import json
 from pathlib import Path
 
-# Add the project root to sys.path
-sys.path.append('/Users/gathanasiou/oxcitas/projects/ML/MRI/deepMRI')
-
 import src.constants as C
 
 def load_data():

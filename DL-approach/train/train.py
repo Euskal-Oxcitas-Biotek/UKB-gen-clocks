@@ -6,8 +6,6 @@ import tensorflow as tf
 from pathlib import Path
 from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from tensorflow.keras.optimizers import SGD
-# import mlflow
-# import mlflow.tensorflow
 import time
 
 from src.data import Dataset
@@ -40,7 +38,6 @@ def compile_model_real_labels(model, learning_rate):
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
                   loss=awd_loss,
                   metrics=['mean_absolute_error', 'mean_squared_error', LocalMAE(num_bins=C.BINS)])
-                #   metrics=[CustomSiMAE(), CustomSiMSE(), LocalMAE(num_bins=C.BINS), PearsonCorrelation()])
     return model
 
 def compile_model_soft_labels(model, learning_rate = C.LEARNING_RATE):
@@ -51,7 +48,6 @@ def compile_model_soft_labels(model, learning_rate = C.LEARNING_RATE):
     initial_learning_rate = learning_rate
     sgd = SGD(learning_rate=initial_learning_rate, momentum=0.9)
     
-    #model.summary()
     model.compile(optimizer=sgd,
                   loss=KLDivLoss,
                   metrics=[CustomMAE(), CustomMSE(), LocalMAE(num_bins=C.BINS), PearsonCorrelation()])
@@ -81,18 +77,18 @@ def create_data_batches(X_train, y_train, X_test, y_test, batch_size, soft_label
         .shuffle(BUFFER_SIZE)
         .map(augment, num_parallel_calls=tf.data.AUTOTUNE)
         .batch(batch_size)
-        .filter(lambda x, y: tf.shape(x)[0] > 1)  # Filter out small batches
+        .filter(lambda x, y: tf.shape(x)[0] > 1)
         .repeat()
         .prefetch(buffer_size=tf.data.AUTOTUNE)
     )
 
-    test_batches = test_scans.batch(batch_size).filter(lambda x, y: tf.shape(x)[0] > 1)  # Filter out small batches
+    test_batches = test_scans.batch(batch_size).filter(lambda x, y: tf.shape(x)[0] > 1)
 
     return train_batches, test_batches
 
 def main(folder_name):
     # Load training configuration
-    config_path = Path('~/git/deepMRI/configs/training_config.json').expanduser().resolve()
+    config_path = Path('../configs/training_config.json').expanduser().resolve()
     print(f"Reading training configuration from: {config_path}")
     with open(config_path, 'r') as config_file:
         config = json.load(config_file)
