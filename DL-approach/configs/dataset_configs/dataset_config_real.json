@@ -1,0 +1,17 @@
+{
+    "name": "deepMRI@demo",
+    "scanIDs": [
+        "dUKBB_s00109_i001_r01",
+        "dUKBB_s00386_i001_r01",
+        "dUKBB_s00535_i001_r01",
+        "dUKBB_s00555_i001_r01",
+        "dUKBB_s00816_i001_r01",
+        "dUKBB_s00816_i002_r01",
+        "dUKBB_s01048_i001_r01",
+        "dUKBB_s01062_i001_r01",
+        "dUKBB_s01083_i001_r01",
+        "dUKBB_s01166_i001_r01"
+    ],
+    "scans_path": "../data/data_CN/",
+    "targets": "../configs/targets/real_targets.json"
+}
