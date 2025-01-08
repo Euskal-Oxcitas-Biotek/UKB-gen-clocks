@@ -35,7 +35,6 @@ There are mainly two type of outcomes in each analysis:
  correction = 'none' (Please take into account that if 'None' -not 'none'- appears we analyze all correction cases simultaneously).
  bounded/unbounded = just a string to highlight whether metrics are or not bounded, not needed anymore as column names are explicit.
 
- An example of the analysis will be saved in the drive at https://drive.google.com/file/d/1BcAHtnDxQhIHb8rVbyA4rXsZgLIZhRyZ/view?usp=drive_link
 
 # ANALYSIS MODES. 
 There are 3 options ('standard','standard_linear' and 'cole_resample').
