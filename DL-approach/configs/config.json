@@ -1,6 +1,0 @@
-{
-    "project_name":                 "deepMRI@ADNI_orig",
-    "data_directory_path":          "~/real_data/conf/",
-    "csv_file_path":                "~/real_data/ADNI_train_clock.csv",
-    "output_directory":             "~/git/deepMRI/"
-}
