@@ -42,14 +42,23 @@ A simple Jupyter Notebook that demonstrates the core of the deep learning approa
 ```
 DL-apporach/
 ├──notebooks
-	├──demo.ipynb 			    # Main Jupyter Notebook
+	├──demo.ipynb 			    	# Main Jupyter Notebook
 ├── data/                   			# Folder for datasets
 ├── src/                 			# Folder for source code
 ├── train/                   			# Folder for training files
 ├── configs/                 			# Folder for configuration files
-├── README.md               		    # Project documentation
-└── requirements.txt        		    # List of required Python packages
+├── README.md               		    	# Project documentation
+└── requirements.txt        		   	# List of required Python packages
 ```
+
+## Disclaimer
+
+The file **[demo.ipynb](./demo.ipynb)** is provided as a demonstration of the methodology. It is executed with limited data and a low number of training epochs for illustrative purposes only. The results may not reflect the performance of the models described in the paper.
+
+If you want to perform real training:
+1. Add your own dataset to a **`data/`** folder in the repository.
+2. Adapt the number of epochs and other training parameters as needed.
+3. Use the script **[train/train.py](./train/train.py)** for full-scale training.
 
 ## Contributing
 
