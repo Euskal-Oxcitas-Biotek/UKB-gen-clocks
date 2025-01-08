@@ -1,0 +1,17 @@
+{
+    "name": "deepMRI@demo",
+    "scanIDs": [
+        "dUKBB_patient_01",
+        "dUKBB_patient_02",
+        "dUKBB_patient_03",
+        "dUKBB_patient_04",
+        "dUKBB_patient_05",
+        "dUKBB_patient_06",
+        "dUKBB_patient_07",
+        "dUKBB_patient_08",
+        "dUKBB_patient_09",
+        "dUKBB_patient_10"
+    ],
+    "scans_path": "../data/data_CN/",
+    "targets": "../configs/targets/sample_soft_targets.json"
+}

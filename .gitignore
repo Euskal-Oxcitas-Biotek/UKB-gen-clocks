@@ -5,3 +5,7 @@ DL-approach/configs/.DS_Store
 DL-approach/data/data_CN/
 DL-approach/data/model_output/
 DL-approach/notebooks/.ipynb_checkpoints/
+DL-approach/configs/dataset_configs/dataset_config_soft.json
+DL-approach/configs/dataset_configs/dataset_config_real.json
+DL-approach/configs/targets/real_targets.json
+DL-approach/configs/targets/soft_targets.json
