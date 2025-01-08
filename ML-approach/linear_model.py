@@ -219,8 +219,7 @@ class LMB(BaseEstimator, RegressorMixin):
                 X_adasyn, y_adasyn = adasyn.fit_resample(X_features, y_target)
                 X = X_adasyn.drop(columns = ['age_at_scan'])
                 y = X_adasyn['age_at_scan']
-        # --------------------------------------------------------------------------------------------------
-        #print('st3:', len(X))
+
         return X, y
 
     def fit(self, X):
