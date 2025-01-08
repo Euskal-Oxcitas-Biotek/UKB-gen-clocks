@@ -53,7 +53,7 @@ DL-apporach/
 
 ## Disclaimer
 
-The file **[demo.ipynb](./demo.ipynb)** is provided as a demonstration of the methodology. It is executed with limited data and a low number of training epochs for illustrative purposes only. The results may not reflect the performance of the models described in the paper.
+The file **[demo.ipynb](./notebooks/demo.ipynb)** is provided as a demonstration of the methodology. It is executed with limited data and a low number of training epochs for illustrative purposes only. The results may not reflect the performance of the models described in the paper.
 
 If you want to perform real training:
 1. Add your own dataset to a **`data/`** folder in the repository.
