@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import linear_model_AVIV as cl
+import linear_model as cl
 import json
 import ast
 import os
