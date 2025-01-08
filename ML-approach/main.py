@@ -1,8 +1,8 @@
 # main.py
 
 import preparation as prep #to create the sploit
-import linear_model_AVIV as cl #to train the (un)penalized linear models-based brain clocks
-import nonlinear_model_AVIV as ncl #to train the (un)penalized linear models-based brain clocks
+import linear_model as cl #to train the (un)penalized linear models-based brain clocks
+import nonlinear_model as ncl #to train the (un)penalized linear models-based brain clocks
 import test_metrics_all as tm #to compute performance metrics in test set
 import corrector as cr #to correct models not clearing t-test/p-values for all coefficients
 import os
@@ -17,7 +17,7 @@ def main(age_limits = [55,85], delta_exclusion_months = None, stratified_by_CN =
          run_id = 1, generate_test = True, delete_existing_test = True):
     """
     :param age_limits: Age interval in years (list: [a,b]) denoting the age bracket considered during training/testing of developed models. Default: a=55,b=85.
-    :param delta_exclusion_months: MRI delta interval/list in months, (a,b], between repetitions for which the patient must be placed in test set for AVIV stability check. Default: a=2, b=4.
+    :param delta_exclusion_months: MRI delta interval/list in months, (a,b]. Default: a=2, b=4.
     :param stratified_by_CN: Whether or not CN_type must be considered in stratified splitting. If not, just consider 'healthy_orx'. Default: True.
     :param database_train: Databases that must be fully considered in training set. Default: [].
     :param database_test: Databases that must be fully considered in test set. Default: [].
@@ -161,7 +161,7 @@ def main(age_limits = [55,85], delta_exclusion_months = None, stratified_by_CN =
                                                    pareto_feature_cases = [['MAE', 'MAE_max_bin','auroc_CN_noCN_orx'], ['MAE_bounded', 'MAE_max_bin_bounded','auroc_CN_noCN_orx_bounded']],
                                                    baseline_test_feats_set = [['age_at_scan'],['age_at_scan','MOCA', 'MMSE', 'CDR'],['age_at_scan', 'CDR'],['age_at_scan', 'MOCA'],
                                                                               ['age_at_scan', 'MMSE']],
-                                                   age_bound = [55,80], db = db)#,'MOCA', 'MMSE', 'CDR']) CN_MultipleSclerosis
+                                                   age_bound = [55,80], db = db)#,'MOCA', 'MMSE', 'CDR'])
                       output.test_models()
         print('** STEP 3 (model testing/selection finished')
 
