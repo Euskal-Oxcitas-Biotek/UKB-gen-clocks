@@ -10,7 +10,7 @@ preprocessing choices. It also includes the automated computation of various age
 
 1) 6 .py files: 1.1) main.py, which includes a comprehensive examples showing the use of the various functions
    presented in this repository. 1.2) Preparation.py, which is used to generate the data split using the entire metadata facilitated
-   by SV on 21/06 (keeping UKBB as training/test and ADNI/NACC just for test). 1.2) lineal_model_AVIV.py/nonlineal_model_AVIV.py:
+   by SV on 21/06 (keeping UKBB as training/test and ADNI/NACC just for test). 1.2) lineal_model.py/nonlineal_model.py:
     In this file we have the classes that are used to train
    customized linear/non-linear regression brain clocks. 1.3) train_features.py: In here, we compute various metrics of the developed models over the training set, 
    we compute the p-values of the corresponding coefficients and provide additional info related to the optimizer
