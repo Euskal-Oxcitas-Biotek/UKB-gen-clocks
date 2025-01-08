@@ -240,7 +240,6 @@ class LMB(BaseEstimator, RegressorMixin):
             self.model = model.model
             self.modelling_strategy = type(self.model).__name__
         elif self.method == 'xgb_hyperopt':
-            print('* ' + self.method + ' ' + self.evaluation_metric)
             hgb = hgboost(max_eval=250, threshold=0.5, cv=5, test_size=0.2, val_size=0.2, top_cv_evals=10,
                           random_state=None)
             results = hgb.xgboost_reg(X_train, y_train.values, eval_metric=self.evaluation_metric)
