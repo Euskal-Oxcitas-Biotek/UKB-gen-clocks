@@ -1,8 +1,8 @@
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import MinMaxScaler
-import linear_model_AVIV as cl
-import nonlinear_model_AVIV as ncl
+import linear_model as cl
+import nonlinear_model as ncl
 from sklearn.metrics import roc_auc_score
 from scipy.stats import shapiro, levene, ttest_ind, mannwhitneyu
 import os
@@ -282,6 +282,11 @@ class output_generator():
                 # STEP 1: MAE per non-age related groups of interest. Add multigroup stat test on abs(PAD)
                 for col in ['db_name', 'machine_model', 'manufacturer', 'CN_type', 'ethnicity','education_years']:
                     G = X_test.dropna(subset=[col]).copy()
+                    #---------------------------------------------------------------------------------------------------
+                    counts = G[col].value_counts()
+                    valid_values = counts[counts >= 3].index
+                    G = G[G[col].isin(valid_values)]
+                    #---------------------------------------------------------------------------------------------------
                     G = G.reset_index(drop=True)
                     num_tests = len(G[col].unique())
                     groups_MAE[healthy][col] = {}
