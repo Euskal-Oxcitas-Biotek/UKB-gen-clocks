@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import MinMaxScaler
 import linear_model as cl
-import nonlinear_model as ncl
+#import nonlinear_model as ncl
 from sklearn.metrics import roc_auc_score
 from scipy.stats import shapiro, levene, ttest_ind, mannwhitneyu
 import os
